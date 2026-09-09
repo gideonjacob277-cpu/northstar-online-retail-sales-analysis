@@ -1,4 +1,4 @@
-Northstar Online Retail — Sales Data Cleaning & Analysis
+Northstar Online Retail Sales Data Cleaning & Analysis
 
 ### Project Overview
 
