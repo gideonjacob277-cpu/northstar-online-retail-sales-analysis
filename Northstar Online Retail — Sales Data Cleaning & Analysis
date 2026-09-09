@@ -1,0 +1,127 @@
+
+---
+
+## 📝 GitHub README (Full Version)
+
+```markdown
+# 🛍️ Northstar Online Retail — Sales Data Cleaning & Analysis
+
+![GitHub](https://img.shields.io/badge/GitHub-Project-blue)
+![SQL](https://img.shields.io/badge/SQL-Data%20Cleaning-orange)
+![Tableau](https://img.shields.io/badge/Tableau-Dashboard-red)
+![Excel](https://img.shields.io/badge/Excel-Data%20Analysis-green)
+![BigQuery](https://img.shields.io/badge/BigQuery-Cloud-yellow)
+
+---
+
+## 👤 Author
+
+**Gideon Ekumgbe**
+- 📧 Email: [gideonjacob277@gmail.com]
+- 🔗 LinkedIn: [Your LinkedIn URL]
+- 🐙 GitHub: 
+- 📍 Location: [Nigeria]
+
+---
+
+## 📌 Project Overview
+
+This project showcases my ability to:
+- **Clean** raw, messy data using SQL
+- **Analyze** sales data to uncover business insights
+- **Visualize** data in an interactive Tableau dashboard
+- **Communicate** findings through professional documentation
+
+**Project Goal**: Transform raw sales data into actionable business insights for Northstar Online Retail (2025).
+
+---
+
+## 🛠️ Tools & Technologies
+
+| Tool | Purpose |
+|------|---------|
+| **SQL (BigQuery)** | Data cleaning, transformation, analysis |
+| **Excel / Google Sheets** | Data validation, preliminary exploration |
+| **Tableau Public** | Dashboard creation, data visualization |
+| **Git / GitHub** | Version control, project hosting |
+
+---
+
+## 📊 Dashboard Preview
+
+![Dashboard Screenshot](screenshots/NORTHSTAR%20ONLINE%20RETAIL%20Sales%20Performance%20Dashboard%202025.png)
+
+**🔗 Live Dashboard**: [Insert Tableau Public Link]
+
+---
+
+## 📈 Key Business Insights
+
+### Overall KPIs
+| Metric | Value |
+|--------|-------|
+| **Total Revenue** | $272,378 |
+| **Total Orders** | 250 |
+| **Average Order Value** | $1,098.30 |
+| **Total Customers** | [X] |
+| **Top Product** | Laptop ($95,823) |
+
+### Top 5 Products by Revenue
+| Rank | Product | Revenue |
+|------|---------|---------|
+| 1 | Laptop | $95,823.00 |
+| 2 | Phone | $47,462.50 |
+| 3 | Monitor | $44,548.50 |
+| 4 | Keyboard | $40,545.00 |
+| 5 | Headphones | $40,000.00 |
+
+### Category Breakdown
+| Category | Revenue | % of Total |
+|----------|---------|------------|
+| Electronics | $265,222.50 | 97% |
+| Accessories | $7,155.50 | 3% |
+
+### Top Cities by Revenue
+| Rank | City | Revenue |
+|------|------|---------|
+| 1 | Seattle | $95,823.00 |
+| 2 | [City] | [Revenue] |
+| 3 | [City] | [Revenue] |
+
+---
+
+## 🧹 Data Cleaning Process
+
+### Issues Identified & Solutions
+| Issue | Count | Solution |
+|-------|-------|----------|
+| Leading/trailing spaces | 1,247 rows | `TRIM()` function |
+| Incorrect date formats | 89 rows | `PARSE_DATE()` |
+| Duplicate Order IDs | 15 rows | `ROW_NUMBER()` |
+| NULL revenue values | 23 rows | `COALESCE()` or removed |
+| Special characters | 32 rows | `REGEXP_REPLACE()` |
+
+### Sample SQL Queries
+```sql
+-- Remove leading/trailing spaces
+UPDATE northstar_sales
+SET product = TRIM(product),
+    city = TRIM(city);
+
+-- Remove duplicate orders
+WITH deduped AS (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY order_id ORDER BY order_date) as rn
+    FROM northstar_sales
+)
+SELECT * EXCEPT(rn)
+FROM deduped
+WHERE rn = 1;
+
+-- Calculate Total Revenue by Product
+SELECT 
+    product,
+    SUM(revenue) as total_revenue
+FROM northstar_sales_deduped
+GROUP BY product
+ORDER BY total_revenue DESC;
